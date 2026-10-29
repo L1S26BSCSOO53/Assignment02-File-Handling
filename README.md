@@ -1,5 +1,14 @@
 # Assignment02-File-Handling
 File Handling
+
+Name: Zainab Shakoor
+Reg Number:L1S26BSCS0053
+##Programs
+- Q1_stock_debugging.cpp
+- Q2_parking_report.cpp
+- Q3_scholarship_list.cpp
+- Q4_heart_rate.cpp
+- Q5_expense_tracker.cpp
 /*
  * Name       : Zainab Shakoor
  * Reg No     : L1S26BSCS0053
