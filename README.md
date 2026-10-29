@@ -224,5 +224,97 @@ int main()
 	
 
 }
+/*
+ *  Student Name : Zainab Shakoor
+ *  Reg No     : L1S26BSCS0053
+ * Assignment : 02 - File Handling
+ * Question :  Scholarship_list
+*/
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<fstream>
+using namespace std;
+int main()
+{
+	char filename[30];
+	cout << "Enter the name of the file: ";
+	cin.getline(filename, 30);
+	ifstream fin(filename);
+	if (!fin.is_open())
+	{
+		cout << "file" << " " << filename << " cannot be opened" << endl;
+		return 1;
+	}
+	
+	ofstream fout("scholarship.txt");
+	if(!fout)
+	{
+		cout << "Could not open file scholarship.txt";
+		return 1;
+	}
+	int n;
+	char name[30];
+	double cgpa;
+	int count=0;
+	double sum=0;
+	int scholarship = 0;
+	double maxcgpa = 0;
+	char topname[30] = " ";
+	if (filename)
+	{
+		
+		{
+			fin >> n;
+			fin.ignore(100, '\n');
+			if (n > 30)
+			{
+				cout << "too many students" << endl;
+				return 1;
+				
+			}
+
+			for(int i=0;i<n;i++)
+			{
+				
+				fin.getline(name, 30, ',');
+				fin >> cgpa;
+				if (!fin)
+				{
+					break;
+				}
+				fin.ignore(100,'\n');
+				cout <<  "[" << name << "]"<< " " << "CGPA:" << " " << cgpa << endl;
+				count++;
+				sum+= cgpa;
+				if (count&& cgpa >= 3.5)
+				{
+					scholarship++;
+					fout << name << " " << "," << cgpa << endl;
+				}
+				if (cgpa > maxcgpa)
+				{
+					maxcgpa = cgpa;
+					strcpy(topname, name);
+				}
+			}
+			if (count < n)
+			{
+				cout << "Warning: only "<< count <<" of" << n << "records found." << endl;
+			}
+			cout << "Students=" << count << endl;
+			double average = sum / count;
+			cout << "Average=" << average << endl;
+			cout << "Scholarship=" << scholarship++ << endl;
+			cout << "TOP Student=" << topname << "[" << maxcgpa << "]" << endl;
+
+		}
+		fin.close();
+		fout.close();
+		
+		
+		
+	}
+	return 0;
+}
 
 
