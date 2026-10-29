@@ -85,4 +85,144 @@ int main() {
     cout << "Low stock items: " << low << endl;
     return 0;
 }
+/*
+ * Name       : Zainab Shakoor
+ * Reg No     : L1S26BSCS0053
+ * Assignment : 02 - File Handling
+ * Question   : Q2 - Parking Report
+ */
+#define _CRT_SECURE_NO_WARNINGS	
+#include<iostream>
+#include<fstream>
+#include<cstring>
+
+using namespace std;
+int main()
+{
+	ifstream fin("parking.txt");
+	if (!fin)
+	{
+		cout << "parking.txt not found!" << endl;
+		return 1;
+	}
+	ofstream fout("receipt.txt");
+	if(!fout)
+	{
+		cout << "receipt.txt not found!" << endl;
+		return 1;
+	}
+	int d;
+	int m;
+	int y;
+	char slash;
+	cout << "Parking report for";
+	fin >> d >> slash >> m >> slash >> y;
+	fout << "Receipt for";
+	fout<< " " << d << slash << m << slash << y << endl;
+	cout << " " << d << slash << m << slash << y << endl;
+	char junk[100];
+	fin >> junk;
+	fin.ignore(100,'\n');
+	fin.clear();
+	string platename;
+	int platenum;
+	int h;
+	int min;
+	char vehicle;
+	char colon;
+	int inth;
+	int intmin;
+	int outh;
+	int outmin;
+	int totalh;
+	int totalmin;
+	int fee;
+	int timeparked;
+	int intotal;
+	int outtotal;
+	int cars=0;
+	int bikes=0;
+	int totalfee=0;
+	char longestplatename[100];
+	int longesth=0;
+	int longestmin = 0;
+	while (fin>>platename)
+	{
+
+
+		
+		cout << platename;
+		fin >> vehicle;
+		if (vehicle == 'C')
+		{
+			cout << " Car ";
+		}
+		else
+		{
+			cout << " Bike ";
+		}
+		fin >> inth >> colon >> intmin;
+		fin >> outh >> colon >> outmin;
+		//	cout << " " << inth << colon << intmin << " " << outh << colon << outmin;
+		intotal = inth * 60 + intmin;
+		outtotal = outh * 60 + outmin;
+		timeparked = outtotal - intotal;
+		totalh = timeparked / 60;
+		totalmin = timeparked % 60;
+		cout << " " << totalh << " h " << totalmin << " min ";
+		int hourscharge = (totalh * 60 + totalmin + 59) / 60;
+		if (vehicle == 'C')
+		{
+			fee = hourscharge * 100;
+		}
+		else
+		{
+			fee = hourscharge * 40;
+		}
+		cout << " Fee: " << fee << endl;
+		
+		if (vehicle == 'C')
+		{
+			cars++;
+		}
+		else
+		{
+			bikes++;
+		}
+		if (timeparked > longesth * 60 + longestmin)
+		{
+			longesth = totalh;
+			longestmin = totalmin;
+			strcpy(longestplatename, platename.c_str());
+		}
+		fout << platename << " " << fee << endl;
+
+		totalfee += fee;
+     
+	}
+	fin.close();
+	fout.close();
+	
+	
+	cout << "Total fee: " << totalfee << endl;
+	cout << "Total cars: " << cars << endl;
+	cout << "Total bikes: " << bikes << endl;
+	cout << "Total vehicles: " << cars + bikes << endl;
+    cout << "Longest time spent in the parking lot: " << longestplatename << " " << longesth << " h " << longestmin << " min" << endl;
+	
+
+
+
+	return 0;
+
+
+	
+
+    
+
+
+	
+
+}
+
 
